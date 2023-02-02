@@ -24,6 +24,7 @@
                 }
                 ?>
             </div>
+        </div>
         <br>
         <div class="blok">
             <h2>Přehled představení</h2>
