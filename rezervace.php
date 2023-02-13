@@ -133,7 +133,7 @@ $mesice = array(
 
                     // print_r($poleSedadel);
 
-                } else echo "<p style='font-size:1rem;'>Nebyla vybrána žádná sedadla!</p>";
+                } else echo "<div class='chyba'>Nebyla vybrána žádná sedadla!</div>";
             }
             ?>
         </div>

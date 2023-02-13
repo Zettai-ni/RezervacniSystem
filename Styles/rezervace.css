@@ -31,3 +31,17 @@
     padding-right: 5rem;
     padding-left: 2rem;
 }
+
+.chyba {
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 1rem;
+    background-color: red;
+    padding: 0.5rem;
+    width: fit-content;
+    margin-left: 2rem;
+}
+
+.rezervace{
+    
+}
