@@ -42,3 +42,15 @@ function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum, $projektor)
         echo "<p>Představení bylo úspěšně přidáno</p>";
     } else echo "<p>Error</p>: " . mysqli_error($db);
 }
+function vypisPredstaveni($filmecky,$row,$porovnavac){
+    if ($row['datum'] == $porovnavac) {
+        if (!in_array($row['id_filmu'], $filmecky)) {
+            echo "<tr>";
+            array_push($filmecky, $row['id_filmu']);
+            echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
+        }
+        echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
+
+        if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
+    }
+}

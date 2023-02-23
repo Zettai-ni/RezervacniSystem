@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
-<?php include('db.php'); ?>
-<?php include('head.php'); ?>
+<?php
+include('db.php');
+include('head.php');
+include('Includes/funkce.php');
+?>
 
 <body>
     <?php include('header.php'); ?>
@@ -28,18 +31,19 @@
         <br>
         <div class="blok">
             <h2>Přehled představení</h2>
-            
+
             <form action="" method="POST" onsubmit="saveScrollPosition()">
-                <button name="zpet" type="zpet">Zpět</button>
-                <input name="date" type="date" value=<?php if (isset($_POST['zpet'])) { 
-                                                            
-                                                            echo date('Y-m-d', strtotime($_POST['date'].'-1 day'));
-                                                    } else if (isset($_POST['date'])){
-                                                        echo $_POST['date'];
-                                                    }
-                                                    else echo date("Y-m-d"); ?>>
-                <button type="dalsi">Další</button>
-                <button type="search">Potvrdit</button>
+                <button name="zpet" type="zpet">◄</button>
+                <input name="date" type="date" value=<?php
+                                                        if (isset($_POST['zpet'])) {
+                                                            echo date('Y-m-d', strtotime($_POST['date'] . '-1 day'));
+                                                        } else if (isset($_POST['dalsi'])) {
+                                                            echo date('Y-m-d', strtotime($_POST['date'] . '+1 day'));
+                                                        } else if (isset($_POST['date'])) {
+                                                            echo $_POST['date'];
+                                                        } else echo date("Y-m-d"); ?>>
+                <button name="dalsi" type="dalsi">►</button>
+                <button type="search">Potvrdit výběr</button>
             </form>
 
             <script>
@@ -54,12 +58,11 @@
                 echo "<script>window.scrollTo(0, $scrollPosition);</script>";
 
                 $datum = $_POST['date'];
-                if (isset($_POST['zpet'])){
-                    
+                if (isset($_POST['zpet'])) {
                 }
             }
             ?>
-            
+
 
             <?php
             $filmecky = array();
@@ -69,15 +72,12 @@
                 echo "<table>";
                 while ($row = $result->fetch_assoc()) {
                     if (isset($_POST['date'])) {
-                        if ($row['datum'] == $_POST['date']) {
-                            if (!in_array($row['id_filmu'], $filmecky)) {
-                                echo "<tr>";
-                                array_push($filmecky, $row['id_filmu']);
-                                echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
-                            }
-                            echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
-
-                            if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
+                        if (isset($_POST['zpet'])) {
+                            vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '-1 day')));
+                        } else if (isset($_POST['dalsi'])) {
+                            vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '+1 day')));
+                        } else {
+                            vypisPredstaveni($filmecky, $row, $_POST['date']);
                         }
                     }
                 }
