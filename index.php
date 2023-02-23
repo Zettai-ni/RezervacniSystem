@@ -10,7 +10,7 @@
     </a>
     <div class="maindiv">
         <div class="blok">
-            <h2>Přehled filmů</h2>
+            <h2>Aktuální nabídka filmů</h2>
             <div class="filmy">
                 <?php
                 $sql = "SELECT titulni_obrazek, id_filmu FROM filmy;";
@@ -28,21 +28,58 @@
         <br>
         <div class="blok">
             <h2>Přehled představení</h2>
+            
+            <form action="" method="POST" onsubmit="saveScrollPosition()">
+                <button name="zpet" type="zpet">Zpět</button>
+                <input name="date" type="date" value=<?php if (isset($_POST['zpet'])) { 
+                                                            
+                                                            echo date('Y-m-d', strtotime($_POST['date'].'-1 day'));
+                                                    } else if (isset($_POST['date'])){
+                                                        echo $_POST['date'];
+                                                    }
+                                                    else echo date("Y-m-d"); ?>>
+                <button type="dalsi">Další</button>
+                <button type="search">Potvrdit</button>
+            </form>
+
+            <script>
+                function saveScrollPosition() {
+                    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                    document.cookie = "scrollPosition=" + scrollPosition;
+                }
+            </script>
+            <?php
+            if (isset($_POST['date'])) {
+                $scrollPosition = $_COOKIE['scrollPosition'];
+                echo "<script>window.scrollTo(0, $scrollPosition);</script>";
+
+                $datum = $_POST['date'];
+                if (isset($_POST['zpet'])){
+                    
+                }
+            }
+            ?>
+            
+
             <?php
             $filmecky = array();
-            $sql = "SELECT id_predstaveni, id_filmu, titulni_obrazek, substring(zacatek,1,5) FROM představení p INNER JOIN filmy f USING(id_filmu) ORDER BY id_filmu";
+            $sql = "SELECT id_predstaveni, id_filmu, titulni_obrazek, datum, substring(zacatek,1,5) FROM představení p INNER JOIN filmy f USING(id_filmu) ORDER BY id_filmu";
             $result = $db->query($sql);
             if ($result->num_rows > 0) {
                 echo "<table>";
                 while ($row = $result->fetch_assoc()) {
-                    if (!in_array($row['id_filmu'], $filmecky)) {
-                        echo "<tr>";
-                        array_push($filmecky, $row['id_filmu']);
-                        echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
-                    }
-                    echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
+                    if (isset($_POST['date'])) {
+                        if ($row['datum'] == $_POST['date']) {
+                            if (!in_array($row['id_filmu'], $filmecky)) {
+                                echo "<tr>";
+                                array_push($filmecky, $row['id_filmu']);
+                                echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
+                            }
+                            echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
 
-                    if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
+                            if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
+                        }
+                    }
                 }
                 echo "</table>";
             }

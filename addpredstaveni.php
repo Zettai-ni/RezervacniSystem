@@ -31,8 +31,8 @@ include('Includes/funkce.php');
                 </div>
                 <div>
                     <label for="vyberdata">Datum a čas</label>
-                    <input type="date" name="datum" id="datum">
-                    <input type="time" name="cas" id="cas">
+                    <input class="vyberdata" type="date" name="datum" id="datum">
+                    <input class="vyberdata" type="time" name="cas" id="cas">
                 </div>
                 <div>
                     <label for="sal">Sál</label>
@@ -48,12 +48,21 @@ include('Includes/funkce.php');
                         ?>
                     </select>
                 </div>
+                <div>
+                    <label for="projektor">Projektor</label>
+                    <select class="projektor" name="projektor" id="projektor">
+                        <option value="2D">2D</option>
+                        <option value="3D">3D</option>
+                    </select>
+
+
+                </div>
                 <button class="submit" type="submit" name="pridat">Přidat</button>
             </form>
         </div>
         <?php
         if (isset($_POST['pridat'])) {
-            pridatPredstaveni($_POST['film'], $_POST['sal'], $_POST['cas'], $_POST['datum']);
+            pridatPredstaveni($_POST['film'], $_POST['sal'], $_POST['cas'], $_POST['datum'], $_POST['projektor']);
         }
 
 

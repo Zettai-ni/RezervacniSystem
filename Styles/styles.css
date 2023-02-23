@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 
 :root {
-    --body-bg: linear-gradient(to bottom, #320a87, black);
+    --body-bg: linear-gradient(to left, #320a87, black);
 }
 
 body {
@@ -10,8 +10,8 @@ body {
     margin: 0;
     padding: 0;
     max-width: 100%;
-    margin-left: 15vw;
-    margin-right: 15vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
     background: var(--body-bg);
     user-select: none;
     /* -webkit-touch-callout: none;
@@ -31,7 +31,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #27086b;
+    background: inherit;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -221,7 +221,15 @@ label[for="titulni_obrazek"],
 label[for="vedlejsi_obrazek"],
 .obrazek,
 .label[for="vyberfilmu"],
-.vyberfilmu {
+.vyberfilmu,
+label[for="film"],
+.film,
+label[for="sal"],
+.sal,
+label[for="projektor"],
+.projektor,
+label[for="vyberdata"],
+.vyberdata {
     display: inline;
 }
 
@@ -336,5 +344,5 @@ footer p {
     background-color: rgba(255, 255, 255, 0.877);
     border-radius: 1rem;
     padding: 1rem 1rem 3rem 1rem;
-    margin: 0rem 2rem 2rem 2rem;
+    margin: 2rem 1rem 0 1rem;
 }

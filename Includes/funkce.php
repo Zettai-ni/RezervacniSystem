@@ -34,10 +34,10 @@ function pridatFilm($nazev, $popis, $delka, $pristupnost, $titulni_obrazek, $ved
         echo "<p>Film byl úspěšně přidán</p>";
     } else echo "<p>Error</p>: " . mysqli_error($db);
 }
-function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum)
+function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum, $projektor)
 {
     include('db.php');
-    $sql = "INSERT INTO představení (id_filmu, id_salu, zacatek, datum) VALUES ('$id_filmu', '$id_salu', '$zacatek','$datum')";
+    $sql = "INSERT INTO představení (id_filmu, id_salu, zacatek, datum, projektor) VALUES ('$id_filmu', '$id_salu', '$zacatek','$datum', '$projektor')";
     if (mysqli_query($db, $sql)) {
         echo "<p>Představení bylo úspěšně přidáno</p>";
     } else echo "<p>Error</p>: " . mysqli_error($db);
