@@ -158,7 +158,7 @@ label,
 }
 
 .delkafilmu,
-.pristupnostfilmu {
+.pristupnostfilmu{
     height: 2rem;
     width: 5rem;
     font-size: large;
@@ -196,7 +196,7 @@ label,
 input:focus,
 textarea:focus,
 select:focus {
-    background-color: #d1bbff;
+    background-color: linear-gradient(to bottom, #320a87); /*DOUPRAVIT BARVICKU*/
 }
 
 .submit:hover,
@@ -347,3 +347,17 @@ footer p {
     margin: 1rem;
 }
 
+.form-popup{
+    background-color: white;
+    padding: 1rem 4rem 2rem 1rem;
+    border-radius: 1rem;
+}
+
+.username, .password, .email {
+    height: 2rem;
+    width: auto;
+    font-size: large;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 1rem;
+}
