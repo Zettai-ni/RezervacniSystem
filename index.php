@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
+session_start();
 include('db.php');
 include('head.php');
 include('Includes/funkce.php');
@@ -14,6 +15,12 @@ include('Includes/funkce.php');
     <div class="maindiv">
         <div class="blok">
             <h2>Aktuální nabídka filmů</h2>
+            <?php 
+            if(isset($_SESSION["jmeno"])){
+                echo "You're logged as ";
+                echo $_SESSION["jmeno"];
+            }
+            ?>
             <div class="filmy">
                 <?php
                 $sql = "SELECT titulni_obrazek, id_filmu FROM filmy;";

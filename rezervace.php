@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_start();
 include('db.php');
 // var_dump($poleSedadel);
 

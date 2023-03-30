@@ -353,7 +353,7 @@ footer p {
     border-radius: 1rem;
 }
 
-.username, .password, .email {
+.username, .pwd, .email {
     height: 2rem;
     width: auto;
     font-size: large;
