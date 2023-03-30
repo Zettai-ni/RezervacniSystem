@@ -29,7 +29,7 @@ include('Includes/funkce.php');
             </div>
         </div>
         <br>
-        <div class="blok">
+        <div class="blok" style="min-height:50rem;">
             <h2>Přehled představení</h2>
 
             <form action="" method="POST" onsubmit="saveScrollPosition()">
@@ -58,28 +58,30 @@ include('Includes/funkce.php');
                 echo "<script>window.scrollTo(0, $scrollPosition);</script>";
 
                 $datum = $_POST['date'];
-                if (isset($_POST['zpet'])) {
-                }
             }
             ?>
 
 
             <?php
             $filmecky = array();
+            array_push($filmecky, '0');
             $sql = "SELECT id_predstaveni, id_filmu, titulni_obrazek, datum, substring(zacatek,1,5) FROM představení p INNER JOIN filmy f USING(id_filmu) ORDER BY id_filmu";
             $result = $db->query($sql);
             if ($result->num_rows > 0) {
                 echo "<table>";
                 while ($row = $result->fetch_assoc()) {
+
                     if (isset($_POST['date'])) {
                         if (isset($_POST['zpet'])) {
-                            vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '-1 day')));
+                            $filmecky = vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '-1 day')));
                         } else if (isset($_POST['dalsi'])) {
-                            vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '+1 day')));
+                            $filmecky = vypisPredstaveni($filmecky, $row, date('Y-m-d', strtotime($_POST['date'] . '+1 day')));
                         } else {
-                            vypisPredstaveni($filmecky, $row, $_POST['date']);
+                            $filmecky = vypisPredstaveni($filmecky, $row, $_POST['date']);
                         }
                     }
+                    
+                    //if (!in_array($filmecky, $row['id_filmu'])) array_push($filmecky, $row['id_filmu']);
                 }
                 echo "</table>";
             }

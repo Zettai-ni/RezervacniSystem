@@ -42,15 +42,24 @@ function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum, $projektor)
         echo "<p>Představení bylo úspěšně přidáno</p>";
     } else echo "<p>Error</p>: " . mysqli_error($db);
 }
-function vypisPredstaveni($filmecky,$row,$porovnavac){
+function vypisPredstaveni($filmecky, $row, $porovnavac)
+{
     if ($row['datum'] == $porovnavac) {
-        if (!in_array($row['id_filmu'], $filmecky)) {
+        // echo $row['datum']." ";
+        // echo $porovnavac." ";
+        // echo "(".($row['id_filmu']).") ";
+        if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) {
             echo "<tr>";
-            array_push($filmecky, $row['id_filmu']);
             echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
         }
+        array_push($filmecky, $row['id_filmu']);
+        // echo print_r($filmecky);
+        // echo "<br>";
         echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
-
         if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
     }
+
+    return $filmecky;
+    //print_r($row['id_filmu']);
+    //print_r($filmecky);
 }

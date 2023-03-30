@@ -114,7 +114,7 @@ input[type="checkbox"]:checked {
 .maindiv {
     background-color: transparent;
     width: 100%;
-    min-height: 120vh;
+    min-height: 150vh;
     margin-top: 1rem;
     padding: 1rem;
     border-radius: 2rem 2rem 0 0;
@@ -301,8 +301,7 @@ footer p {
 .blok tr td img {
     object-fit: cover;
     max-width: fit-content;
-    height: 10rem;
-    max-height: fit-content;
+    max-height: 10rem;
     -webkit-user-drag: none;
     user-select: none;
 }
@@ -340,9 +339,11 @@ footer p {
 }
 
 .blok,
-.rezervace {
+.rezervace,
+.blok-predstaveni {
     background-color: rgba(255, 255, 255, 0.877);
     border-radius: 1rem;
     padding: 1rem 1rem 3rem 1rem;
-    margin: 2rem 1rem 0 1rem;
+    margin: 1rem;
 }
+
