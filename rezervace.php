@@ -104,6 +104,10 @@ $mesice = array(
             <?php
             if (isset($_POST['submit'])) {
                 if (!empty($_POST['vybrana'])) {
+                    if (!isset($_SESSION["jmeno"])) {
+                        echo "<div class='chyba'>Musíte se přihlásit!</div>";
+                        exit;
+                    }
                     echo "<form class='potvrzenivyberu'>";
                     echo "<table>";
                     echo "<tr><td>Sedadlo</td><td>Typ</td><td>Cena</td></tr>";
@@ -113,28 +117,32 @@ $mesice = array(
 
                                 echo "<tr>";
                                 echo "<td>" . chr($rada + 64) . $sedadlo . "</td>";
-                                echo "<td><select>";
-                                echo "<option>Dítě</option>";
-                                echo "<option>Student</option>";
-                                echo "<option>Dospělý</option>";
-                                echo "<option>Senior</option>";
+                                echo "<td><select class='vstupenky'>";
+                                echo "<option value=''>-- Vyberte možnost --</option>";
+                                echo "<option value='70'>Dítě (70Kč)</option>";
+                                echo "<option value='150'>Student (150Kč)</option>";
+                                echo "<option value='75'>Student + ISIC (75Kč)</option>";
+                                echo "<option value='150'>Dospělý (150Kč)</option>";
+                                echo "<option value='100'>Senior (100Kč)</option>";
+                                echo "<td><div class='cena'>0</div></td>";
                                 echo "</select></td>";
-                                echo "<td>159Kč</td>";
                                 echo "</tr>";
                             }
                         }
                     }
 
-
-
                     echo "</table>";
-                    echo "Celkem: 0Kč<br>";
-                    echo "<button type='submit' name='submit'>Potvrdit sedadla</button>";
+                    echo "Celkem: <div id='sum'>0</div>Kč<br>";
+                    echo "<button type='submit' name='rezervace'>Rezervovat</button>";
+                    //echo "<button type='submit' name='submit'>Potvrdit sedadla</button>";
                     echo "</form>";
 
                     // print_r($poleSedadel);
 
                 } else echo "<div class='chyba'>Nebyla vybrána žádná sedadla!</div>";
+            }
+            if (isset($_POST['rezervace'])) {
+                echo "c";
             }
             ?>
         </div>
@@ -143,3 +151,42 @@ $mesice = array(
 </body>
 
 </html>
+<script>
+    const selects = document.querySelectorAll('.vstupenky');
+    const numbers = document.querySelectorAll('.cena');
+    const sumElement = document.getElementById('sum');
+
+    let sum = 0;
+
+    for (let i = 0; i < selects.length; i++) {
+    const select = selects[i];
+    const emptyOption = select.querySelector('option[value=""]');
+
+    select.addEventListener('change', () => {
+      if (select.value !== '') {
+        emptyOption.disabled = true;
+        emptyOption.style.display = 'none';
+      }
+    });
+  }
+
+    selects.forEach((select, index) => {
+        select.addEventListener('change', () => {
+            updateNumber(select, numbers[index]);
+            calculateSum();
+        });
+    });
+
+    function updateNumber(select, number) {
+        number.textContent = select.value;
+    }
+
+    function calculateSum() {
+        sum = 0;
+        numbers.forEach(number => {
+            sum += parseInt(number.textContent);
+        });
+        sumElement.textContent = sum;
+    }
+
+</script>

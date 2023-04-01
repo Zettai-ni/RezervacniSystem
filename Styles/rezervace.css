@@ -28,16 +28,22 @@
 }
 
 .potvrzenivyberu table td:last-child {
-    padding-right: 5rem;
+    padding-right: 4rem;
     padding-left: 2rem;
 }
 
 .chyba {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: white;
-    border-radius: 1rem;
+    border-radius: 0.7rem;
     background-color: red;
-    padding: 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     width: fit-content;
     margin-left: 2rem;
+}
+
+#sum,
+.cena {
+    display: inline-block;
+
 }

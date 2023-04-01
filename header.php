@@ -29,6 +29,8 @@
 
     <button id="btnPri" onclick="openPrihlaseni()">Přihlásit se</button>
 
+    <button id="btnPro"><a href="profil.php">Profil</a> </button>
+
     <button id="btnOdh"><a href="Includes/logout-include.php">Odhlásit se</a> </button>
 
     <?php
@@ -97,6 +99,7 @@ if (isset($_SESSION["jmeno"])) {
     <script>
         document.getElementById("btnPri").style.display = "none";
         document.getElementById("btnOdh").style.display = "block";
+        document.getElementById("btnPro").style.display = "block";
     </script>
 <?php
 } else {
@@ -104,6 +107,7 @@ if (isset($_SESSION["jmeno"])) {
     <script>
         document.getElementById("btnPri").style.display = "block";
         document.getElementById("btnOdh").style.display = "none";
+        document.getElementById("btnPro").style.display = "none";
     </script>
 <?php
 }
