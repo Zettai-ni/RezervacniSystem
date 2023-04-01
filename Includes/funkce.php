@@ -63,3 +63,50 @@ function vypisPredstaveni($filmecky, $row, $porovnavac)
     //print_r($row['id_filmu']);
     //print_r($filmecky);
 }
+function vytvoritRezervaci($uzivatel)
+{
+    include('../db.php');
+    $sql = "INSERT INTO rezervace (id_uzivatele) VALUES ('$uzivatel')";
+    if (mysqli_query($db, $sql)) {
+        echo "<p>Rezervace úspěšně vytvořena (1)</p>";
+    } else echo "<p>Error</p>: " . mysqli_error($db);
+}
+
+function vytvoritRezervovaneSedadlo($poleCen, $poleOznaceni, $predstaveni)
+{
+    vytvoritRezervaci($_SESSION['id_uzivatele']);
+
+    include('../db.php');
+    $sql = "SELECT id_rezervace FROM rezervace ORDER BY id_rezervace DESC LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        $id_r = $row['id_rezervace'];
+        echo "<p>Rezervace úspěšně vytvořena (2)</p>";
+    } else echo "<p>Error</p>: " . mysqli_error($db);
+
+    // echo "IDR: ".$id_r;
+    // print_r($id_r);
+    // var_dump($id_r);
+    
+
+    foreach ($poleCen as $index => $cena) {
+        if (isset($poleOznaceni[$index])) {
+            $oznaceni = $poleOznaceni[$index];
+            // echo "<br> ".$id_r.", ".$predstaveni.", ".$oznaceni.", ".$cena;
+            $sql = "INSERT INTO rezervovaná_sedadla (id_rezervace, id_predstaveni, sedadloOznaceni, cena) VALUES ('$id_r','$predstaveni','$oznaceni','$cena')";
+            if (mysqli_query($db, $sql)) {
+                echo "<p>Rezervace úspěšně vytvořena (4)</p>";
+            } else echo "<p>Error</p>: " . mysqli_error($db);
+        }
+    }
+
+    $cisla = array_map('intval', $poleCen);
+    $sum = array_sum($cisla);
+
+    $sql = "UPDATE rezervace SET cena = $sum WHERE id_rezervace = $id_r";
+    if (mysqli_query($db, $sql)) {
+        echo "<p>Cena přičtena</p>";
+    } else echo "<p>Error</p>: " . mysqli_error($db);
+
+}

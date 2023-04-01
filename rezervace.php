@@ -2,6 +2,7 @@
 <?php
 session_start();
 include('db.php');
+include('Includes/funkce.php');
 // var_dump($poleSedadel);
 
 $dny = array(
@@ -37,6 +38,7 @@ $mesice = array(
     <?php include('header.php'); ?>
     <a href="index.php">
         <h1 class="nadpis">CINETEK</h1>
+
     </a>
     <div class="maindiv">
 
@@ -52,9 +54,11 @@ $mesice = array(
                         $row['substring(zacatek,1,5)'] . " " . $row['day(datum)'] . ". " . $mesice[$row['month(datum)']] . "</h3>";
                 }
             }
-            ?>
-            <!-- Sál 7, Úterý 11:15 27.listopadu 2023 -->
 
+
+            ?>
+
+            <!-- Sál 7, Úterý 11:15 27.listopadu 2023 -->
             <?php
             echo "<form method='post' action='rezervace.php?p=$_GET[p]'>";
             ?>
@@ -62,7 +66,6 @@ $mesice = array(
                 <tr>
                     <td></td>
                     <?php
-
                     $sql = "SELECT * FROM sály s INNER JOIN představení p USING(id_salu) WHERE id_predstaveni = $_GET[p]";
                     $result = $db->query($sql);
                     if ($result->num_rows > 0) {
@@ -80,6 +83,15 @@ $mesice = array(
                         }
                     }
 
+                    $obsazena = array();
+                    $sql = "SELECT * FROM rezervovaná_sedadla WHERE id_predstaveni = $_GET[p]";
+                    $result = $db->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            array_push($obsazena, $row['sedadloOznaceni']);
+                        }
+                    }
+
                     for ($sedadlo = 1; $sedadlo <= $pocetSedadel; $sedadlo++) {
                         echo "<td>$sedadlo</td>";
                     }
@@ -92,14 +104,17 @@ $mesice = array(
                             echo "<td><label class='container'>";
                             echo "<input type='checkbox' name='vybrana[]' value='$oznaceni'";
                             if (isset($_POST['vybrana']) && in_array($oznaceni, $_POST['vybrana'])) echo " checked='checked'";
-                            echo "><span class='checkmark'></span></label></td>";
+                            echo "><span class=";
+                            if (!in_array($oznaceni, $obsazena)) echo "'checkmark'";
+                            else echo "'vybrana'";
+                            echo "></span></label></td>";
                         }
                         echo "</tr>";
                     }
 
                     ?>
             </table>
-            <button type="submit" name="submit">Vybrat místa</button>
+            <button type="submit" name="submit">Potvrdit výběr</button>
             </form>
             <?php
             if (isset($_POST['submit'])) {
@@ -108,24 +123,25 @@ $mesice = array(
                         echo "<div class='chyba'>Musíte se přihlásit!</div>";
                         exit;
                     }
-                    echo "<form class='potvrzenivyberu'>";
+                    $pomPole = array();
+                    echo "<form class='potvrzenivyberu' method='POST' action='Includes/rezervace-include.php?p=$_GET[p]'>";
                     echo "<table>";
                     echo "<tr><td>Sedadlo</td><td>Typ</td><td>Cena</td></tr>";
                     foreach ($poleSedadel as $rada => $radaSedadel) {
                         foreach ($radaSedadel as $sedadlo => $oznaceni) {
                             if (in_array($oznaceni, $_POST['vybrana'])) {
-
+                                array_push($pomPole, $oznaceni);
                                 echo "<tr>";
-                                echo "<td>" . chr($rada + 64) . $sedadlo . "</td>";
-                                echo "<td><select class='vstupenky'>";
+                                echo "<td>" . $oznaceni . "</td>";
+                                echo "<td><select name='moznost[]' class='vstupenky'>";
                                 echo "<option value=''>-- Vyberte možnost --</option>";
                                 echo "<option value='70'>Dítě (70Kč)</option>";
-                                echo "<option value='150'>Student (150Kč)</option>";
+                                echo "<option value='150'>Student / Dospělý (150Kč)</option>";
                                 echo "<option value='75'>Student + ISIC (75Kč)</option>";
-                                echo "<option value='150'>Dospělý (150Kč)</option>";
-                                echo "<option value='100'>Senior (100Kč)</option>";
+                                echo "<option value='80'>Senior (80Kč)</option>";
                                 echo "<td><div class='cena'>0</div></td>";
                                 echo "</select></td>";
+                                echo "<input type='hidden' name='pomPole[]' value='" . $oznaceni . "'>";
                                 echo "</tr>";
                             }
                         }
@@ -133,17 +149,16 @@ $mesice = array(
 
                     echo "</table>";
                     echo "Celkem: <div id='sum'>0</div>Kč<br>";
-                    echo "<button type='submit' name='rezervace'>Rezervovat</button>";
+                    echo "<button type='submit' name='rezervace' onclick='kontrola(event)'>Rezervovat</button>";
                     //echo "<button type='submit' name='submit'>Potvrdit sedadla</button>";
                     echo "</form>";
+
 
                     // print_r($poleSedadel);
 
                 } else echo "<div class='chyba'>Nebyla vybrána žádná sedadla!</div>";
             }
-            if (isset($_POST['rezervace'])) {
-                echo "c";
-            }
+
             ?>
         </div>
     </div>
@@ -159,16 +174,16 @@ $mesice = array(
     let sum = 0;
 
     for (let i = 0; i < selects.length; i++) {
-    const select = selects[i];
-    const emptyOption = select.querySelector('option[value=""]');
+        const select = selects[i];
+        const emptyOption = select.querySelector('option[value=""]');
 
-    select.addEventListener('change', () => {
-      if (select.value !== '') {
-        emptyOption.disabled = true;
-        emptyOption.style.display = 'none';
-      }
-    });
-  }
+        select.addEventListener('change', () => {
+            if (select.value !== '') {
+                emptyOption.disabled = true;
+                emptyOption.style.display = 'none';
+            }
+        });
+    }
 
     selects.forEach((select, index) => {
         select.addEventListener('change', () => {
@@ -189,4 +204,14 @@ $mesice = array(
         sumElement.textContent = sum;
     }
 
+    function kontrola(event) {
+        var selects = document.getElementsByTagName("select");
+        for (var i = 0; i < selects.length; i++) {
+            if (selects[i].value === "") {
+                event.preventDefault();
+                alert("Vyberte prosím možnost ze všech selectů.");
+                return;
+            }
+        }
+    }
 </script>

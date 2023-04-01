@@ -17,15 +17,6 @@
     width: 0;
 }
 
-.checkmark {
-    position: absolute;
-    top: -32px;
-    left: 0;
-    height: 48px;
-    width: 48px;
-    background-color: #d1bbff;
-}
-
 .container:hover input~.checkmark {
     background-color: #320a87;
     opacity: 0.7;
@@ -54,4 +45,17 @@
 .sedadla {
     border-spacing: 4px;
     /* overflow-x: hidden; */
+}
+.vybrana, .checkmark{
+    position: absolute;
+    top: -32px;
+    left: 0;
+    height: 48px;
+    width: 48px;
+}
+.checkmark {
+    background-color: #d1bbff;
+}
+.vybrana{
+    background-color: #db3434;
 }
