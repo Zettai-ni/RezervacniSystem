@@ -44,7 +44,6 @@
 
 .sedadla {
     border-spacing: 4px;
-    /* overflow-x: hidden; */
 }
 .vybrana, .checkmark{
     position: absolute;

@@ -3,7 +3,6 @@
 session_start();
 include('db.php');
 include('Includes/funkce.php');
-// var_dump($poleSedadel);
 
 $dny = array(
     "1" => "pondělí",
@@ -15,7 +14,7 @@ $dny = array(
     "7" => "neděle"
 );
 
-$mesice = array( 
+$mesice = array(
     "1" => "ledna",
     "2" => "února",
     "3" => "března",
@@ -58,7 +57,6 @@ $mesice = array(
 
             ?>
 
-            <!-- Sál 7, Úterý 11:15 27.listopadu 2023 -->
             <?php
             echo "<form method='post' action='rezervace.php?p=$_GET[p]'>";
             ?>
@@ -100,7 +98,6 @@ $mesice = array(
                     foreach ($poleSedadel as $rada => $radaSedadel) {
                         echo "<tr><td style='width:48px;'>" . chr($rada + 64) . "</td>";
                         foreach ($radaSedadel as $sedadlo => $oznaceni) {
-                            // print_r($oznaceni);
                             echo "<td><label class='container'>";
                             echo "<input type='checkbox' name='vybrana[]' value='$oznaceni'";
                             if (isset($_POST['vybrana']) && in_array($oznaceni, $_POST['vybrana'])) echo " checked='checked'";

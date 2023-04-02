@@ -43,38 +43,6 @@ function pridatFilm($nazev, $popis, $delka, $pristupnost, $titulni_obrazek, $ved
             function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum, $projektor)
             {
                 include('db.php');
-                // $sql = "SELECT delka FROM filmy WHERE id_filmu = $id_filmu";
-                // $result = $db->query($sql);
-                // if ($result->num_rows > 0) {
-                //     while ($row = $result->fetch_assoc()) {
-                //         $delka = $row['delka'] * 60;
-                //         $zacatekPom = DateTime::createFromFormat("H:i:s", $datum);
-                //         $zacatekMinusDelka = clone $zacatekPom;
-                //         $zacatekMinusDelka->sub(new DateInterval('PT' . $delka . 'S'));
-                //         $zacatekMinusDelkaPom = $zacatekMinusDelka->format('H:i:s');
-
-                //         $zacatekPlusDelka = clone $zacatekPom;
-                //         $zacatekPlusDelka->add(new DateInterval('PT' . $delka . 'S'));
-                //         $zacatekPlusDelkaPom = $zacatekPlusDelka->format('H:i:s');
-
-                //         // echo "<br>Datum minus delka: " . $zacatekMinusDelkaPom . "\n";
-                //         // echo "<br>Datum plus delka: " . $zacatekPlusDelkaPom  . "\n";
-
-                //         $sql = "SELECT zacatek FROM predstaveni WHERE datum = $datum AND id_salu = $id_salu";
-                //         $result = $db->query($sql);
-                //         if ($result->num_rows > 0) {
-                //             while ($row = $result->fetch_assoc()) {
-                //                 if ($row['zacatek'] >= $zacatekMinusDelkaPom && $row['zacatek'] <= $zacatekPlusDelkaPom) {
-                //     ?><script>
-                //             alert("V intervalu se již nějaké představení nachází!");
-                //         </script><?php
-                //                     header("location: index.php");
-                //                     exit();
-                //                 }
-                //             }
-                //         }
-                //     }
-                // } else echo "<p>Error</p>: " . mysqli_error($db);
                 $sql = "INSERT INTO představení (id_filmu, id_salu, zacatek, datum, projektor) VALUES ('$id_filmu', '$id_salu', '$zacatek','$datum', '$projektor')";
                 if (mysqli_query($db, $sql)) {
                     echo "<p>Představení bylo úspěšně přidáno</p>";

@@ -14,12 +14,6 @@ body {
     margin-right: 10vw;
     background: var(--body-bg);
     user-select: none;
-    /* -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none; */
-
 }
 
 ::-webkit-scrollbar {
@@ -72,7 +66,6 @@ header img:hover {
     margin-top: 0;
     color: white;
     letter-spacing: 1rem;
-    /* transform: rotateX(180deg);  */
     transition-delay: 0.2s;
     transition-duration: 0.5s;
 }
@@ -81,7 +74,6 @@ header img:hover {
     letter-spacing: 1.1rem;
     transition-delay: 0.1s;
     transition-duration: 0.2s;
-    /* transform: rotateX(0deg);  */
 }
 
 input[type="checkbox"] {
@@ -91,9 +83,6 @@ input[type="checkbox"] {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    /* background-color: green;
-    color: black;
-    display: none; */
 }
 
 td {
@@ -104,13 +93,6 @@ td {
     text-align: center;
 }
 
-/* input[type="checkbox"]:hover + td:before{
-    background-color: red;
-}
-input[type="checkbox"]:checked {
-    background-color: black;
-    color: white;
-} */
 .maindiv {
     background-color: transparent;
     width: 100%;
@@ -122,9 +104,6 @@ input[type="checkbox"]:checked {
     overflow: auto;
 }
 
-/* .maindiv:not(.filmy){
-   
-} */
 .maindiv h2 {
     margin: 1rem;
     font-size: 2rem;
@@ -213,7 +192,6 @@ input:focus,
 textarea:focus,
 select:focus {
     background-color: linear-gradient(to bottom, #320a87);
-    /*DOUPRAVIT BARVICKU*/
 }
 
 .submit:hover,
