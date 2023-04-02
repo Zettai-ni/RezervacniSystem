@@ -36,6 +36,7 @@ if (isset($_SESSION["jmeno"])) {
     <div class="maindiv">
         <div class="blok">
             <h2>Přidat představení</h2>
+            
             <form method="POST" action="" enctype="multipart/form-data">
                 <div>
                     <label for="film">Film</label>

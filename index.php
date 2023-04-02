@@ -96,7 +96,7 @@ include('Includes/funkce.php');
             <?php
             $filmecky = array();
             array_push($filmecky, '0');
-            $sql = "SELECT id_predstaveni, id_filmu, titulni_obrazek, datum, substring(zacatek,1,5) FROM představení p INNER JOIN filmy f USING(id_filmu) ORDER BY id_filmu";
+            $sql = "SELECT id_predstaveni, id_filmu, titulni_obrazek, datum, substring(zacatek,1,5), id_salu FROM představení p INNER JOIN filmy f USING(id_filmu) ORDER BY id_filmu";
             $result = $db->query($sql);
             if ($result->num_rows > 0) {
                 echo "<table>";

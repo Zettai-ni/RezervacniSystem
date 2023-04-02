@@ -158,12 +158,28 @@ label,
 }
 
 .delkafilmu,
-.pristupnostfilmu {
+.pristupnostfilmu,
+.film,
+.sal,
+.projektor,
+.vyberdata {
     height: 2rem;
     width: 5rem;
     font-size: large;
     border: hidden;
     border-radius: 8px;
+}
+
+.sal{
+    width: 7rem
+}
+
+.film{
+    width: 15rem;
+}
+#datum{
+    width: 10rem;
+
 }
 
 .pristupnostfilmu {
