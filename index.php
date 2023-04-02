@@ -14,7 +14,22 @@ include('Includes/funkce.php');
     </a>
     <div class="maindiv">
         <div class="blok">
-            <h2>Aktuální nabídka filmů</h2>
+            <h2>Aktuální nabídka filmů
+                <?php
+                if (isset($_SESSION["jmeno"])) {
+                    $jmeno = $_SESSION["jmeno"];
+                    $sql = "SELECT prava FROM uživatelé WHERE jmeno LIKE '$jmeno'";
+                    $result = mysqli_query($db, $sql);
+                    if ($result) {
+                        $row = mysqli_fetch_array($result);
+                        if ($row['prava'] == 'admin') {
+                            echo "<div class='vytvorit'><a href='addfilm.php'>Vytvořit</a></div>";
+                        }
+                    }
+                }
+                ?>
+            </h2>
+
             <div class="filmy">
                 <?php
                 $sql = "SELECT titulni_obrazek, id_filmu FROM filmy;";
@@ -31,7 +46,22 @@ include('Includes/funkce.php');
         </div>
         <br>
         <div class="blok" style="min-height:50rem;">
-            <h2>Přehled představení</h2>
+            <h2>Přehled představení
+                <?php
+                if (isset($_SESSION["jmeno"])) {
+                    $jmeno = $_SESSION["jmeno"];
+                    $sql = "SELECT prava FROM uživatelé WHERE jmeno LIKE '$jmeno'";
+                    $result = mysqli_query($db, $sql);
+                    if ($result) {
+                        $row = mysqli_fetch_array($result);
+                        if ($row['prava'] == 'admin' || $row['prava'] == 'zamestnanec') {
+                            echo "<div class='vytvorit'><a href='addpredstaveni.php'>Vytvořit</a></div>";
+                        }
+                    }
+                }
+                ?>
+
+            </h2>
 
             <form action="" method="POST" onsubmit="saveScrollPosition()">
                 <button name="zpet" type="zpet">◄</button>

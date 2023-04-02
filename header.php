@@ -29,35 +29,32 @@
 
     <button id="btnPri" onclick="openPrihlaseni()">Přihlásit se</button>
 
-    <button id="btnPro"><a href="profil.php">Profil</a> </button>
+    <button id="btnPro"><a href="profil.php">Profil <?php echo $_SESSION["jmeno"]?></a> </button>
 
     <button id="btnOdh"><a href="Includes/logout-include.php">Odhlásit se</a> </button>
 
     <?php
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "emptyinput") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Fill in all fields!</p>";
+            ?><script>alert("Vyplň všechna políčka!");</script><?php
         } else if ($_GET["error"] == "wronglogin") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Incorrect login informations!</p>";
+            ?><script>alert("Špatné přihlašovací údaje!");</script><?php
         } else if ($_GET["error"] == "invalidUid") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Choose a proper username!</p>";
+            ?><script>alert("Zvol vhodnější username!");</script><?php
         } else if ($_GET["error"] == "invalidEmail") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Choose a proper email!</p>";
+            ?><script>alert("Zvol vhodnější mail!");</script><?php
         } else if ($_GET["error"] == "invalidPassword") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Passwords doesn't match!</p>";
+            ?><script>alert("Špatně zadané heslo!");</script><?php
         } else if ($_GET["error"] == "stmtfailed") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Something went wrong, try again!</p>";
+            ?><script>alert("Něco se pokazilo, zkus to znovu!");</script><?php
         } else if ($_GET["error"] == "usernametaken") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:red'>Username or email already taken!</p>";
+            ?><script>alert("username nebo email je již používán!");</script><?php
         } else if ($_GET["error"] == "none") {
-            echo "<p style='font-size: 36px;margin: 10px;padding: 15px;color:green'>You have signed up!</p>";
+            echo "<p class='chyba' style='background:green'>Úspěšně zaregistrováno</p>";
         }
     }
     ?>
 
-    <!-- <a href="profil.php">
-        <p style="font-size: 1.5rem;color:white;opacity:0.7;">Přihlásit se</p>
-    </a> -->
 </header>
 <script>
     document.getElementById("prihlaseni").style.display = "none";

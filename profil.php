@@ -14,12 +14,7 @@ include('Includes/funkce.php');
     </a>
     <div class="maindiv">
         <div class="blok">
-            <h2><?php
-                if (isset($_SESSION["jmeno"])) {
-                    echo "Jste přihlášený jako ";
-                    echo $_SESSION["jmeno"];
-                }
-                ?></h2>
+            <h2>Vaše rezervace</h2>
         </div>
 
     </div>

@@ -158,7 +158,7 @@ label,
 }
 
 .delkafilmu,
-.pristupnostfilmu{
+.pristupnostfilmu {
     height: 2rem;
     width: 5rem;
     font-size: large;
@@ -196,7 +196,8 @@ label,
 input:focus,
 textarea:focus,
 select:focus {
-    background-color: linear-gradient(to bottom, #320a87); /*DOUPRAVIT BARVICKU*/
+    background-color: linear-gradient(to bottom, #320a87);
+    /*DOUPRAVIT BARVICKU*/
 }
 
 .submit:hover,
@@ -347,17 +348,75 @@ footer p {
     margin: 1rem;
 }
 
-.form-popup{
+.form-popup {
     background-color: white;
     padding: 1rem 4rem 2rem 1rem;
     border-radius: 1rem;
 }
 
-.username, .pwd, .email {
+.username,
+.pwd,
+.email {
     height: 2rem;
     width: auto;
     font-size: large;
     border-radius: 8px;
     display: block;
     margin-bottom: 1rem;
+}
+
+.close,
+.login,
+.registrace,
+#btnReg,
+#btnPri,
+#btnOdh,
+#btnPro,
+.vytvorit a {
+    border-color: blueviolet;
+    background-color: blueviolet;
+    color: white;
+    height: 1.5rem;
+    width: auto;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.1s;
+}
+
+#btnPri,
+#btnOdh,
+#btnPro {
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+#btnOdh a,
+#btnPro a {
+    color: white;
+}
+
+.close:hover,
+.login:hover,
+.registrace:hover,
+#btnReg:hover,
+#btnPri:hover,
+#btnOdh:hover,
+#btnPro:hover {
+    color: black;
+    background-color: white;
+    transition: 0.1s;
+
+}
+
+.vytvorit a {
+    font-size: 1rem;
+    padding: 0.5rem;
+    transition: 0.1s;
+
+}
+
+.vytvorit a:hover {
+    background-color: #320a87;
+    transition: 0.1s;
 }

@@ -44,23 +44,16 @@ function pridatPredstaveni($id_filmu, $id_salu, $zacatek, $datum, $projektor)
 function vypisPredstaveni($filmecky, $row, $porovnavac)
 {
     if ($row['datum'] == $porovnavac) {
-        // echo $row['datum']." ";
-        // echo $porovnavac." ";
-        // echo "(".($row['id_filmu']).") ";
         if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) {
             echo "<tr>";
             echo "<td><a href='film.php?id=" . $row['id_filmu'] . "'><img src='filmy/" . $row['titulni_obrazek'] . "'></a></td>";
         }
         array_push($filmecky, $row['id_filmu']);
-        // echo print_r($filmecky);
-        // echo "<br>";
         echo "<td class='prdst_cas'><a href='rezervace.php?p=" . $row['id_predstaveni'] . "'>" . $row['substring(zacatek,1,5)'] . "</a></td>";
         if ($row['id_filmu'] != $filmecky[count($filmecky) - 1]) echo "</tr>";
     }
 
     return $filmecky;
-    //print_r($row['id_filmu']);
-    //print_r($filmecky);
 }
 function vytvoritRezervaci($uzivatel)
 {

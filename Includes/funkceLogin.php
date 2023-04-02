@@ -1,5 +1,4 @@
 <?php
-
 function emptyInputSignup($username, $email, $pwd, $pwdrepeat){
     //$result;
     if(empty($username) || empty($email) || empty($pwd) || empty($pwdrepeat)){

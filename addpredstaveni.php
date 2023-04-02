@@ -3,6 +3,27 @@
 session_start();
 include('db.php');
 include('Includes/funkce.php');
+if (isset($_SESSION["jmeno"])) {
+    $jmeno = $_SESSION["jmeno"];
+    $sql = "SELECT prava FROM uživatelé WHERE jmeno LIKE '$jmeno'";
+    $result = mysqli_query($db, $sql);
+    if ($result) {
+        $row = mysqli_fetch_array($result);
+        if ($row['prava'] == 'admin' || $row['prava'] == 'zamestnanec') {
+        } else {
+            header("location: index.php");
+            exit();
+        }
+    } else {
+        header("location: index.php");
+        exit();
+        echo "<p class='chyba'>Chyba</p>";
+    }
+} else {
+
+    header("location: index.php");
+    exit();
+}
 ?>
 <html>
 <?php include('head.php'); ?>
