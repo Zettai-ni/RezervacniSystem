@@ -81,8 +81,6 @@ include('Includes/funkce.php');
                             $filmecky = vypisPredstaveni($filmecky, $row, $_POST['date']);
                         }
                     }
-                    
-                    //if (!in_array($filmecky, $row['id_filmu'])) array_push($filmecky, $row['id_filmu']);
                 }
                 echo "</table>";
             }

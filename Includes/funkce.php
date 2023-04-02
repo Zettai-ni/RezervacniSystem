@@ -12,7 +12,6 @@ function pridatObrazek($img, $povoleneTypySouboru, $maxVelikost)
                         $_FILES[$img]["tmp_name"],
                         $slozka . "/" . $_FILES[$img]["name"]
                     );
-                    // echo "<p>Soubor '{$_FILES[$img]["name"]}' byl úspěšně nahrán.</p>";
                 } else
                     echo "<p>Soubor je příliš velký ({$_FILES[$img]["size"]} B)! Maximální velikost je $maxVelikost MB.</p>";
             } else
@@ -88,7 +87,7 @@ function vytvoritRezervovaneSedadlo($poleCen, $poleOznaceni, $predstaveni)
     // echo "IDR: ".$id_r;
     // print_r($id_r);
     // var_dump($id_r);
-    
+
 
     foreach ($poleCen as $index => $cena) {
         if (isset($poleOznaceni[$index])) {
@@ -108,5 +107,4 @@ function vytvoritRezervovaneSedadlo($poleCen, $poleOznaceni, $predstaveni)
     if (mysqli_query($db, $sql)) {
         echo "<p>Cena přičtena</p>";
     } else echo "<p>Error</p>: " . mysqli_error($db);
-
 }
