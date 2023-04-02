@@ -15,7 +15,7 @@ $dny = array(
     "7" => "neděle"
 );
 
-$mesice = array(
+$mesice = array( 
     "1" => "ledna",
     "2" => "února",
     "3" => "března",
